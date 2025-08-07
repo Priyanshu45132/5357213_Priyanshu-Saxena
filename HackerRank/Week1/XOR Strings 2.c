@@ -7,7 +7,7 @@
 #include <stdbool.h>
 
 int main() {
-    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+   
     char s[100];
     char b[100];
     char result[100];
