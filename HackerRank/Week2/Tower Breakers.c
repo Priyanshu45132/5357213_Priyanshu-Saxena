@@ -12,41 +12,48 @@
 char* readline();
 char* ltrim(char*);
 char* rtrim(char*);
+char** split_string(char*);
 
 int parse_int(char*);
 
+
 /*
- * Complete the 'pageCount' function below.
+ * Complete the 'towerBreakers' function below.
  *
  * The function is expected to return an INTEGER.
  * The function accepts following parameters:
  *  1. INTEGER n
- *  2. INTEGER p
+ *  2. INTEGER m
  */
 
-int pageCount(int n, int p) {
-   int front,back;
-   front=p/2;
-   back=n/2-p/2;
-   if( front<back){
-    return front;
-   }
-   else{
-    return back;
-   }
+int towerBreakers(int n, int m) {
+     int a=m,b=m,n1,n2; 
+     if(m==1 ||  n%2==0){
+        return 2;
+     }
+     else {
+        return 1;
+     }
+    
 }
 
 int main()
 {
     FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
 
-    int n = parse_int(ltrim(rtrim(readline())));
+    int t = parse_int(ltrim(rtrim(readline())));
 
-    int p = parse_int(ltrim(rtrim(readline())));
+    for (int t_itr = 0; t_itr < t; t_itr++) {
+        char** first_multiple_input = split_string(rtrim(readline()));
 
-    int result = pageCount(n, p);
+        int n = parse_int(*(first_multiple_input + 0));
 
-    fprintf(fptr, "%d\n", result);
+        int m = parse_int(*(first_multiple_input + 1));
+
+        int result = towerBreakers(n, m);
+
+        fprintf(fptr, "%d\n", result);
+    }
 
     fclose(fptr);
 
@@ -139,6 +146,27 @@ char* rtrim(char* str) {
     *(end + 1) = '\0';
 
     return str;
+}
+
+char** split_string(char* str) {
+    char** splits = NULL;
+    char* token = strtok(str, " ");
+
+    int spaces = 0;
+
+    while (token) {
+        splits = realloc(splits, sizeof(char*) * ++spaces);
+
+        if (!splits) {
+            return splits;
+        }
+
+        splits[spaces - 1] = token;
+
+        token = strtok(NULL, " ");
+    }
+
+    return splits;
 }
 
 int parse_int(char* str) {
